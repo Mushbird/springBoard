@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">>
+<head>
+<meta charset="UTF-8">
+<title>글 상세 정보</title>
+</head>
+<body>
+	<ul>
+		<li>No : 
+			<th:block th:text="${list.boardNo}">
+			</th:block>
+		</li>
+		<li>제목 : 
+			<th:block th:text="${list.boardTitle}">
+			</th:block>
+		</li>
+		<li>내용 :
+			<th:block th:text="${list.boardContent}">
+			</th:block>
+		</li>
+		<li>작성자 :
+			<th:block th:text="${list.boardUser}">
+			</th:block>
+		</li>
+		<li>일자 :
+			<th:block th:text="${list.boardDate}">
+			</th:block>
+		</li>
+	</ul>
+	<a th:href="@{/boardUpdate(boardNo=${list.boardNo}, currentPage=${currentPage})}">수정</a>
+	<a th:href="@{/boardDelete(boardNo=${list.boardNo}, currentPage=${currentPage})}">삭제</a>
+	<a th:href="@{/boardList(currentPage=${currentPage})}">리스트로 돌아가기</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">>
+<head>
+<meta charset="UTF-8">
+<title>글 수정화면</title>
+</head>
+<body>
+	<form action="/boardUpdate" method="post">
+		<input type="hidden" name="boardNo" th:value="${list.boardNo}">
+	  	No : 
+	  	<th:block th:text="${list.boardNo}">
+		</th:block>
+	    제목 :
+	    <input type="text" name="boardTitle" th:value="${list.boardTitle}"/>
+	    내용 :
+	    <input type="text" name="boardContent" th:value="${list.boardContent}"/>
+	    <input type="submit" value="수정" />
+	</form>
+	<a th:href="@{/boardDetail(boardNo = ${list.boardNo}, currentPage=${currentPage})}">상세정보로 돌아가기</a>
+</body>
+</html>

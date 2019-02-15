@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>글 등록 화면</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<form action="/boardAdd" method="post">
+  	제목
+    <input type="text" name="boardTitle" />
+    내용
+    <input type="text" name="boardContent" />
+    등록자
+    <input type="text" name="boardUser" />
+    비밀번호
+    <input type="text" name="boardPw" />
+    <input type="submit" value="등록" />
+</form>
+</body>
+</html>

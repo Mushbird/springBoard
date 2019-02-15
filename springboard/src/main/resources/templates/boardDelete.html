@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">>
+<head>
+<meta charset="UTF-8">
+<title>글 삭제화면</title>
+</head>
+<body>
+	<form action="/boardDelete" method="post">
+		<input type="hidden" name="boardNo" th:value="${list.boardNo}">
+		삭제화면 <br>
+	  	No : 
+	  	<th:block th:text="${list.boardNo}">
+		</th:block>
+	    비밀번호 :
+	    <input type="text" name="boardPw" />
+	    <input type="submit" value="삭제" />
+	</form>
+	<a th:href="@{/boardDetail(boardNo = ${list.boardNo}, currentPage=${currentPage})}">상세정보로 돌아가기</a>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>글 리스트</title>
+</head>
+<body>
+		<table border=1>
+			<tr>
+				<td>No</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>일자</td>
+		
+			</tr>
+			<tr th:each="list : ${map.list}">
+				<td th:text="${list.boardNo}"></td>
+				<td>
+					<a th:href="@{/boardDetail(boardNo = ${list.boardNo}, currentPage=${currentPage})}">
+						<th:block th:text="${list.boardTitle}"></th:block>
+					</a>
+				</td>
+				<td th:text="${list.boardUser}"></td>
+				<td th:text="${list.boardDate}"></td>
+			</tr>
+		</table>
+		<a th:href="@{/boardList}">처음</a>
+		<span th:if="${currentPage <= 1 }" >
+		이전
+		</span>
+		<span th:unless="${currentPage <= 1 }" >
+		<a th:href="@{/boardList(currentPage = ${currentPage - 1})}">이전</a>
+		</span>
+		<span th:if="${currentPage >= map.lastPage}" >
+		다음
+		</span>
+		<span th:unless="${currentPage >= map.lastPage}" >
+		<a th:href="@{/boardList(currentPage = ${currentPage + 1})}">다음</a>
+		</span>
+		<a th:href="@{/boardList(currentPage = ${map.lastPage})}">마지막</a>
+</body>
+</html>
