@@ -3,18 +3,32 @@
 <head>
 <title>글 등록 화면</title>
 <meta charset="UTF-8">
+
+<!-- 합쳐지고 최소화된 CSS -->
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
+<!-- 합쳐치고 최소화된 자바스크립트 -->
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
+<div class="container form-group">
+<h1> boardAdd (글 등록) </h1>
 <form action="/boardAdd" method="post">
-  	제목
-    <input type="text" name="boardTitle" />
-    내용
-    <input type="text" name="boardContent" />
-    등록자
-    <input type="text" name="boardUser" />
-    비밀번호
-    <input type="text" name="boardPw" />
-    <input type="submit" value="등록" />
+  	<label class="control-label">제목</label>
+    	<input type="text" name="boardTitle" class="form-control"/>
+    <label class="control-label">내용</label>
+    	<input name="boardContent" class="form-control"/>
+    <label class="control-label">등록자</label>
+    	<input type="text" name="boardUser" class="form-control"/>
+    <label class="control-label">비밀번호</label>
+		<input type="text" name="boardPw" class="form-control"/>
+	<br>
+	<input type="submit" value="등록"/>
 </form>
+<br>
+<a th:href="@{/boardList(currentPage=${currentPage})}">리스트로 돌아가기</a>
+</div>
 </body>
 </html>

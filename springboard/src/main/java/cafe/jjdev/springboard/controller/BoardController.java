@@ -103,13 +103,13 @@ public class BoardController {
 	
 	// 글 삭제처리
 	@PostMapping(value="boardDelete")
-	public String boardDelete(Board board) {
+	public String boardDelete(Board board, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		// 글 삭제처리 (C)도착확인
 		System.out.println("(C)Post : /boardDelete(삭제처리) 글 No :"+board.getBoardNo());
 		// Service를 통한 글 삭제처리를 위해서 작성
 		boardService.removeBoard(board);
 		// 삭제처리후 글 리스트로 이동하기 위한 리턴
-		return "redirect:/boardList";
+		return "redirect:/boardList?currentPage="+ currentPage;
 	}
 
 	

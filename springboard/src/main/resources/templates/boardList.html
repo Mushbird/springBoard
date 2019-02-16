@@ -3,9 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>글 리스트</title>
+
+<!-- 합쳐지고 최소화된 CSS -->
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
+<!-- 합쳐치고 최소화된 자바스크립트 -->
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
-		<table border=1>
+<div class="container">
+<h1> Spring board (글 리스트)</h1><br>
+<a th:href="@{/boardAdd}">글 작성</a>
+		<table class="table table-hover">
 			<tr>
 				<td>No</td>
 				<td>제목</td>
@@ -24,19 +35,24 @@
 				<td th:text="${list.boardDate}"></td>
 			</tr>
 		</table>
-		<a th:href="@{/boardList}">처음</a>
-		<span th:if="${currentPage <= 1 }" >
+	<div class="col-md-offset-3">
+		<ul class="pagination">
+		<li><a th:href="@{/boardList}">처음</a></li>
+		<li><span th:if="${currentPage <= 1 }" >
 		이전
-		</span>
-		<span th:unless="${currentPage <= 1 }" >
+		</span></li>
+		<li><span th:unless="${currentPage <= 1 }" >
 		<a th:href="@{/boardList(currentPage = ${currentPage - 1})}">이전</a>
-		</span>
-		<span th:if="${currentPage >= map.lastPage}" >
+		</span></li>
+		<li><span th:if="${currentPage >= map.lastPage}" >
 		다음
-		</span>
-		<span th:unless="${currentPage >= map.lastPage}" >
+		</span></li>
+		<li><span th:unless="${currentPage >= map.lastPage}" >
 		<a th:href="@{/boardList(currentPage = ${currentPage + 1})}">다음</a>
-		</span>
-		<a th:href="@{/boardList(currentPage = ${map.lastPage})}">마지막</a>
+		</span></li>
+		<li><a th:href="@{/boardList(currentPage = ${map.lastPage})}">마지막</a></li>
+		</ul>
+	</div>
+</div>
 </body>
 </html>

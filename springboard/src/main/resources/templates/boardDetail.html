@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>글 상세 정보</title>
+
+<!-- 합쳐지고 최소화된 CSS -->
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
+<!-- 합쳐치고 최소화된 자바스크립트 -->
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
+<div class="container">
+<h1> boardDatail (글 상세정보)</h1>
 	<ul>
 		<li>No : 
 			<th:block th:text="${list.boardNo}">
@@ -30,5 +40,6 @@
 	<a th:href="@{/boardUpdate(boardNo=${list.boardNo}, currentPage=${currentPage})}">수정</a>
 	<a th:href="@{/boardDelete(boardNo=${list.boardNo}, currentPage=${currentPage})}">삭제</a>
 	<a th:href="@{/boardList(currentPage=${currentPage})}">리스트로 돌아가기</a>
+</div>
 </body>
 </html>
