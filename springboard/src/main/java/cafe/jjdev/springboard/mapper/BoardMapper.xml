@@ -13,10 +13,10 @@
 				board_user,
 				board_date
 			) VALUES (
-				${boardPw},
-				${boardTitle},
-				${boardContent},
-				${boardUser},
+				#{boardPw},
+				#{boardTitle},
+				#{boardContent},
+				#{boardUser},
 				current_date()
 			)
 	</insert>
