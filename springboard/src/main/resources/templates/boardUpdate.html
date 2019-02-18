@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>글 수정화면</title>
+<!-- jquery를 사용하기 위한 작성 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- 합쳐지고 최소화된 CSS -->
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
@@ -10,21 +12,40 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-
+<!-- 이동 확인 -->
+<script>
+	console.log("글 수정화면");
+	/* 유효성 검사 */
+	$(document).ready(function(){
+		$('#submit').click(function(){
+			$('#boardUpdate').submit(function(event){
+				if($('#boardTitle').val().length<1){
+					$('#boardTitle').attr('placeholder','한글자 이상 입력해주세요.');
+					$('#boardTitle').focus();
+					return false;
+				}else if($('#boardContent').val().length<1){
+					$('#boardContent').attr('placeholder','한글자 이상 입력해주세요.');
+					$('#boardContent').focus();
+					return false;
+				}
+			});
+		});
+	});				
+</script>
 </head>
 <body>
 <div class="container form-group">
 <h1> boardUpdate (글 수정화면)</h1>
-	<form action="/boardUpdate" method="post">
+	<form action="/boardUpdate" id="boardUpdate" method="post">
 		<input type="hidden" name="boardNo" th:value="${list.boardNo}">
 	  	<label class="control-label">No :</label> 
 	  		<th:block th:text="${list.boardNo}">
 			</th:block><br>
 	    <label class="control-label">제목</label>
-	    	<input type="text" name="boardTitle" th:value="${list.boardTitle}" class="form-control"/><br>
+	    	<input type="text" name="boardTitle" id="boardTitle" th:value="${list.boardTitle}" class="form-control"/><br>
 	    <label class="control-label">내용</label>
-	    	<input type="text" name="boardContent" th:value="${list.boardContent}" class="form-control"/><br>
-	    	<input type="submit" value="수정" />
+	    	<textarea name="boardContent" id="boardContent" th:text="${list.boardContent}" class="form-control"/></textarea><br>
+	    	<input type="submit" id="submit" value="수정" />
 	</form>
 	<br>
 	<a th:href="@{/boardDetail(boardNo = ${list.boardNo}, currentPage=${currentPage})}">상세정보로 돌아가기</a>

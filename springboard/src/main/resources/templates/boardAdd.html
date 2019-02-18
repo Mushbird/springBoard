@@ -3,6 +3,8 @@
 <head>
 <title>글 등록 화면</title>
 <meta charset="UTF-8">
+<!-- jquery를 사용하기 위한 작성 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- 합쳐지고 최소화된 CSS -->
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
@@ -10,22 +12,49 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-
+<!-- 이동 확인 -->
+<script>
+	console.log("글 등록 화면");
+	/* 유효성 검사 */
+	$(document).ready(function(){
+		$('#submit').click(function(){
+			$('#boardAdd').submit(function(event){
+				if($('#boardTitle').val().length<1){
+					$('#boardTitle').attr('placeholder','한글자 이상 입력해주세요.');
+					$('#boardTitle').focus();
+					return false;
+				}else if($('#boardContent').val().length<1){
+					$('#boardContent').attr('placeholder','한글자 이상 입력해주세요.');
+					$('#boardContent').focus();
+					return false;
+				}else if($('#boardUser').val().length<1){
+					$('#boardUser').attr('placeholder','한글자 이상 입력해주세요.');
+					$('#boardUser').focus();
+					return false;
+				}else if($('#boardPw').val().length<1){
+					$('#boardPw').attr('placeholder','한글자 이상 입력해주세요.');
+					$('#boardPw').focus();
+					return false;
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 <div class="container form-group">
 <h1> boardAdd (글 등록) </h1>
-<form action="/boardAdd" method="post">
+<form action="/boardAdd" id="boardAdd" method="post">
   	<label class="control-label">제목</label>
-    	<input type="text" name="boardTitle" class="form-control"/>
+    	<input type="text" name="boardTitle" id="boardTitle" class="form-control"/>
     <label class="control-label">내용</label>
-    	<textarea name="boardContent" class="form-control"/></textarea>
+    	<textarea name="boardContent" id="boardContent" class="form-control"/></textarea>
     <label class="control-label">등록자</label>
-    	<input type="text" name="boardUser" class="form-control"/>
+    	<input type="text" name="boardUser" id="boardUser" class="form-control"/>
     <label class="control-label">비밀번호</label>
-		<input type="text" name="boardPw" class="form-control"/>
+		<input type="text" name="boardPw" id="boardPw" class="form-control"/>
 	<br>
-	<input type="submit" value="등록"/>
+	<input type="submit" id="submit" value="등록"/>
 </form>
 <br>
 <a th:href="@{/boardList(currentPage=${currentPage})}">리스트로 돌아가기</a>

@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>글 리스트</title>
+<!-- jquery를 사용하기 위한 작성 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- 합쳐지고 최소화된 CSS -->
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
@@ -10,13 +12,16 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-
+<!-- 이동 확인 -->
+<script>
+	console.log("글 리스트");
+</script>
 </head>
 <body>
 <div class="container">
 <h1> Spring board (글 리스트)</h1><br>
 <a th:href="@{/boardAdd}">글 작성</a>
-		<table class="table table-hover">
+		<table class="table table-hover table-striped">
 			<tr>
 				<td>No</td>
 				<td>제목</td>

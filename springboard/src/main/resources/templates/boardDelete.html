@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>글 삭제화면</title>
+<!-- jquery를 사용하기 위한 작성 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- 합쳐지고 최소화된 CSS -->
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
@@ -10,20 +12,35 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-
+<!-- 이동 확인 -->
+<script>
+	console.log("글 삭제화면");
+	/* 유효성 검사 */
+	$(document).ready(function(){
+		$('#submit').click(function(){
+			$('#boardDelete').submit(function(event){
+				if($('#boardPw').val().length<1){
+					$('#boardPw').attr('placeholder','비밀번호를 입력해주세요.');
+					$('#boardPw').focus();
+					return false;
+				}
+			});
+		});
+	});		
+</script>
 </head>
 <body>
 <div class="container form-group">
 <h1> boardDelete (글 삭제화면) </h1>
-	<form action="/boardDelete" method="post">
+	<form action="/boardDelete" id="boardDelete" method="post">
 		<input type="hidden" name="boardNo" th:value="${list.boardNo}">
 		<input type="hidden" name="currentPage" th:value="${currentPage}">
 	  	No : 
 	  	<th:block th:text="${list.boardNo}">
 		</th:block><br>
 	    <label class="control-label">비밀번호</label>
-	   		<input type="text" name="boardPw" class="form-control"/><br>
-	    	<input type="submit" value="삭제" />
+	   		<input type="text" name="boardPw" id="boardPw" class="form-control"/><br>
+	    	<input type="submit" id="submit" value="삭제" />
 	</form>
 	<br>
 	<a th:href="@{/boardDetail(boardNo = ${list.boardNo}, currentPage=${currentPage})}">상세정보로 돌아가기</a>

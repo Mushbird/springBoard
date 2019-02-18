@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>글 상세 정보</title>
+<!-- jquery를 사용하기 위한 작성 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- 합쳐지고 최소화된 CSS -->
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}">
@@ -10,7 +12,10 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-
+<!-- 이동 확인 -->
+<script>
+	console.log("글 상세 정보");
+</script>
 </head>
 <body>
 <div class="container">
@@ -37,8 +42,8 @@
 			</th:block>
 		</li>
 	</ul>
-	<a th:href="@{/boardUpdate(boardNo=${list.boardNo}, currentPage=${currentPage})}">수정</a>
-	<a th:href="@{/boardDelete(boardNo=${list.boardNo}, currentPage=${currentPage})}">삭제</a>
+	<a th:href="@{/boardUpdate(boardNo=${list.boardNo}, currentPage=${currentPage})}">수정</a>&nbsp;&nbsp;&nbsp;
+	<a th:href="@{/boardDelete(boardNo=${list.boardNo}, currentPage=${currentPage})}">삭제</a><br>
 	<a th:href="@{/boardList(currentPage=${currentPage})}">리스트로 돌아가기</a>
 </div>
 </body>
