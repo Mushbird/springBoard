@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>글 수정화면</title>
@@ -12,8 +12,9 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-<!-- 이동 확인 -->
+
 <script>
+	/* 이동 확인 */
 	console.log("글 수정화면");
 	/* 유효성 검사 */
 	$(document).ready(function(){
@@ -44,7 +45,7 @@
 	    <label class="control-label">제목</label>
 	    	<input type="text" name="boardTitle" id="boardTitle" th:value="${list.boardTitle}" class="form-control"/><br>
 	    <label class="control-label">내용</label>
-	    	<textarea name="boardContent" id="boardContent" th:text="${list.boardContent}" class="form-control"/></textarea><br>
+	    	<textarea name="boardContent" id="boardContent" th:text="${list.boardContent}" cols="5" rows="10" class="form-control"/></textarea><br>
 	    	<input type="submit" id="submit" value="수정" />
 	</form>
 	<br>

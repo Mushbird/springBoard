@@ -12,15 +12,15 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-<!-- 이동 확인 -->
+
 <script>
+	/* 이동 확인 */
 	console.log("글 리스트");
 </script>
 </head>
 <body>
 <div class="container">
 <h1> Spring board (글 리스트)</h1><br>
-<a th:href="@{/boardAdd}">글 작성</a>
 		<table class="table table-hover table-striped">
 			<tr>
 				<td>No</td>
@@ -40,21 +40,40 @@
 				<td th:text="${list.boardDate}"></td>
 			</tr>
 		</table>
+		
+	<!-- 글 작성 이동 -->
+	<a th:href="@{/boardAdd}" class="btn btn-default">글 작성</a>
+	
+	<!-- 페이징 -->
 	<div class="col-md-offset-3">
-		<ul class="pagination">
+		<ul class="pagination" 
+			th:with="startPage=${T(Math).floor((currentPage-1)/10)*10 + 1}, lastPage=(${startPage + 9 < map.lastPage ? startPage + 9 : map.lastPage})">
+		
+		<!-- 처음 -->
 		<li><a th:href="@{/boardList}">처음</a></li>
-		<li><span th:if="${currentPage <= 1 }" >
-		이전
+		
+		<!-- 이전 -->
+		<li aria-label="Previous"><span th:if="${currentPage <= 1 }" >
+		&laquo;
 		</span></li>
-		<li><span th:unless="${currentPage <= 1 }" >
-		<a th:href="@{/boardList(currentPage = ${currentPage - 1})}">이전</a>
+		<li aria-label="Previous"><span th:unless="${currentPage <= 1 }" >
+		<a th:href="@{/boardList(currentPage = ${currentPage - 1})}">&laquo;</a>
 		</span></li>
-		<li><span th:if="${currentPage >= map.lastPage}" >
-		다음
+		
+		<!-- 번호 이동 -->
+		<li th:each="page: ${#numbers.sequence(startPage, lastPage)}" th:class="${page == currentPage} ? 'active'">
+    		<a th:text="${page}" th:href="@{/boardList(currentPage=${page})}"></a>
+		</li>
+		
+		<!-- 다음 -->
+		<li aria-label="Next"><span th:if="${currentPage >= map.lastPage}" >
+		&raquo;
 		</span></li>
-		<li><span th:unless="${currentPage >= map.lastPage}" >
-		<a th:href="@{/boardList(currentPage = ${currentPage + 1})}">다음</a>
+		<li aria-label="Next"><span th:unless="${currentPage >= map.lastPage}" >
+		<a th:href="@{/boardList(currentPage = ${currentPage + 1})}">&raquo;</a>
 		</span></li>
+		
+		<!-- 마지막 -->
 		<li><a th:href="@{/boardList(currentPage = ${map.lastPage})}">마지막</a></li>
 		</ul>
 	</div>

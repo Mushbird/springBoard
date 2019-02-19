@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>글 상세 정보</title>
@@ -12,38 +12,27 @@
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.theme.min.css}">
 <!-- 합쳐치고 최소화된 자바스크립트 -->
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
-<!-- 이동 확인 -->
+
 <script>
+	/* 이동 확인 */
 	console.log("글 상세 정보");
 </script>
 </head>
 <body>
-<div class="container">
+<div class="container form-group">
 <h1> boardDatail (글 상세정보)</h1>
-	<ul>
-		<li>No : 
-			<th:block th:text="${list.boardNo}">
-			</th:block>
-		</li>
-		<li>제목 : 
-			<th:block th:text="${list.boardTitle}">
-			</th:block>
-		</li>
-		<li>내용 :
-			<th:block th:text="${list.boardContent}">
-			</th:block>
-		</li>
-		<li>작성자 :
-			<th:block th:text="${list.boardUser}">
-			</th:block>
-		</li>
-		<li>일자 :
-			<th:block th:text="${list.boardDate}">
-			</th:block>
-		</li>
-	</ul>
+	<label class="control-label">No : </label>
+		<input type="text" th:value="${list.boardNo}" class="form-control" readonly>
+	<label class="control-label">제목 : </label> 
+		<input type="text"  th:value="${list.boardTitle}" class="form-control" readonly>
+	<label class="control-label">내용 : </label>
+		<textarea th:text="${list.boardContent}" cols="5" rows="10" class="form-control" readonly></textarea>
+	<label class="control-label">작성자 : </label>
+		<input type="text"  th:value="${list.boardUser}" class="form-control" readonly>
+	<label class="control-label">일자 : </label>
+		<input type="text"  th:value="${list.boardDate}" class="form-control" readonly><br>
 	<a th:href="@{/boardUpdate(boardNo=${list.boardNo}, currentPage=${currentPage})}">수정</a>&nbsp;&nbsp;&nbsp;
-	<a th:href="@{/boardDelete(boardNo=${list.boardNo}, currentPage=${currentPage})}">삭제</a><br>
+	<a th:href="@{/boardDelete(boardNo=${list.boardNo}, currentPage=${currentPage})}">삭제</a><br><br>
 	<a th:href="@{/boardList(currentPage=${currentPage})}">리스트로 돌아가기</a>
 </div>
 </body>

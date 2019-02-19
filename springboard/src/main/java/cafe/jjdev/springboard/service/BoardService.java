@@ -127,7 +127,7 @@ public class BoardService {
 		/* System.out.println("Service의 selectBoardList / selectBoardCount() 완료!"); */
 		
 		// 마지막 페이지수의 정보를 lastPage에 담는다. (ceil은 올림 함수)
-		int lastPage = (int)(Math.ceil(boardCount/ROW_PER_PAGE));
+		int lastPage = (int)((Math.ceil(boardCount/ROW_PER_PAGE))+1);
 		/* System.out.println("Service의 selectBoardList / lastPage 계산 완료!"); */
 		
 		// 리스트에 관련된 값들을 리턴으로 넘기기 위해 Map을 사용(객체생성)

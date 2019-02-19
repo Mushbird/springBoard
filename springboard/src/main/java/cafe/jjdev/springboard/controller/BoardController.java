@@ -19,6 +19,7 @@ public class BoardController {
 	public String boardAdd() {
 		// 입력 화면 (C)도착확인
 		System.out.println("(C)Get : /boardAdd(입력화면)");
+		
 		// 입력화면으로 이동하기 위한 리턴
 		return "boardAdd";
 	}
@@ -28,6 +29,7 @@ public class BoardController {
 	public String boardAdd(Board board) {
 		// 입력 처리 (C)도착확인
 		System.out.println("(C)Post : /boardAdd(입력처리)");
+		
 		// Service를 통한 글 등록처리
 		boardService.addBoard(board);
 		// 등록처리후 글 리스트로 이동하기 위한 리턴
@@ -79,8 +81,9 @@ public class BoardController {
 	// 글 수정처리
 	@PostMapping(value="boardUpdate")
 	public String boardUpdate(Board board) {
-		// 글 수정화면 (C)도착확인
+		// 글 수정처리 (C)도착확인
 		System.out.println("(C)Post : /boardUpdate(수정처리) 글 No :"+board.getBoardNo());
+		
 		// Service를 통한 글 수정처리를 위해서 작성
 		boardService.modifyBoard(board);
 		// 수정처리후 글 리스트로 이동하기 위한 리턴
@@ -106,6 +109,7 @@ public class BoardController {
 	public String boardDelete(Board board, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		// 글 삭제처리 (C)도착확인
 		System.out.println("(C)Post : /boardDelete(삭제처리) 글 No :"+board.getBoardNo());
+		
 		// Service를 통한 글 삭제처리를 위해서 작성
 		boardService.removeBoard(board);
 		// 삭제처리후 글 리스트로 이동하기 위한 리턴
