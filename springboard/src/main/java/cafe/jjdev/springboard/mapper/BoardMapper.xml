@@ -6,6 +6,11 @@
 	<!-- 등록 -->
 	<insert id="insertBoard"
 			parameterType="cafe.jjdev.springboard.vo.Board">
+			 
+		<selectKey resultType="int" keyProperty="boardNo" order="AFTER">
+            SELECT LAST_INSERT_ID() AS boardNo
+        </selectKey>
+        
 			INSERT INTO board(
 				board_pw,
 				board_title,

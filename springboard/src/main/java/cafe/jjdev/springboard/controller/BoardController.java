@@ -1,5 +1,9 @@
 package cafe.jjdev.springboard.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cafe.jjdev.springboard.service.BoardService;
 import cafe.jjdev.springboard.vo.Board;
+import cafe.jjdev.springboard.vo.BoardRequest;
 
 @Controller
 public class BoardController {
@@ -26,12 +31,17 @@ public class BoardController {
 	
 	// 글 등록을 요청
 	@PostMapping(value="/boardAdd")
-	public String boardAdd(Board board) {
+	public String boardAdd(BoardRequest boardRequest, HttpServletRequest request) throws IllegalStateException, IOException {
 		// 입력 처리 (C)도착확인
 		System.out.println("(C)Post : /boardAdd(입력처리)");
 		
-		// Service를 통한 글 등록처리
-		boardService.addBoard(board);
+		// board안에 fileList를 분해 및 저장(+ 경로) -> 서비스로 넘기기 !
+		
+		// 파일 경로 정보를 넘겨주기 위해서 path 변수선언
+		String path = request.getSession().getServletContext().getRealPath("./upload");
+		System.out.println("파일 경로 : " + path);
+		// Service를 통한 글 등록처리(파일경로)
+		boardService.insertBoard(boardRequest, path);
 		// 등록처리후 글 리스트로 이동하기 위한 리턴
 		return "redirect:/boardList";
 	}

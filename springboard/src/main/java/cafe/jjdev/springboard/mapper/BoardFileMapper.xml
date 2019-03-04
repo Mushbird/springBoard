@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cafe.jjdev.springboard.mapper.BoardFileMapper">
+	<!-- 등록 -->
+	<insert id="insertBoardFile"
+			parameterType="cafe.jjdev.springboard.vo.Boardfile">     
+			INSERT INTO boardfile(
+				boardfile_no,
+				board_no,
+				file_name,
+				file_ext,
+				file_type,
+				file_size
+			) VALUES (
+				#{boardFileNo},
+				#{boardNo},
+				#{fileName},
+				#{fileExt},
+				#{fileType},
+				#{fileSize}
+			)
+	</insert>
+</mapper>

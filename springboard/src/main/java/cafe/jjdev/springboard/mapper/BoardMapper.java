@@ -13,7 +13,7 @@ public interface BoardMapper {
 	int insertBoard(Board board);
 	/*
 	 *  1. 글 등록 처리 insertBoard()
-	 *   Service의 addBoard()
+	 *   Service의 insertBoard()
 	 */
 	
 	Board selectBoard(int boardNo);

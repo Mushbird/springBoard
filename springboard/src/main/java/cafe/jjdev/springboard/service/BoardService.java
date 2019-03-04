@@ -1,29 +1,93 @@
 package cafe.jjdev.springboard.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import cafe.jjdev.springboard.mapper.BoardFileMapper;
 import cafe.jjdev.springboard.mapper.BoardMapper;
 import cafe.jjdev.springboard.vo.Board;
+import cafe.jjdev.springboard.vo.BoardRequest;
+import cafe.jjdev.springboard.vo.Boardfile;
 
 @Service
 @Transactional	// 하나라도 실패시 실행중단
 public class BoardService {
 	@Autowired private BoardMapper boardMapper;
+	@Autowired private BoardFileMapper boardFileMapper;
 	
-	public int addBoard(Board board) {
+	public void insertBoard(BoardRequest boardRequest, String path) throws IllegalStateException, IOException {
 	/*
-	 * 	1. 글 등록처리 addBoard()
-	 * 	입력 매개변수 : Board타입 board
-	 * 	리턴 타입 : int
-	 *  Mapper의 insertBoard()
+	 * 	1. 글 등록처리(파일추가) insertBoard()
+	 * 	입력 매개변수 : BoardRequest타입의 boardRequest, String타입의 path
+	 * 	리턴 타입 : 없음
+	 *  Mapper의 insertBoard()와 insertBoardRequest()
 	 */
-		return boardMapper.insertBoard(board);
+		
+	 //	BoardRequest를 분리 : board, file, file 정보
+		System.out.println("BoardRequest 분리 시작!");
+		System.out.println("board 처리 시작!");
+	 //	1. board -> board(Vo)
+		Board board = new Board();
+		board.setBoardTitle(boardRequest.getBoardTitle());
+		board.setBoardPw(boardRequest.getBoardPw());
+		board.setBoardContent(boardRequest.getBoardContent());
+		board.setBoardUser(boardRequest.getBoardUser());
+		
+	 // 서브쿼리 실행후 insert된 쿼리의 No를 얻을수 있다.
+		boardMapper.insertBoard(board);
+		
+		System.out.println("board 처리완료 / boardNo Get !");
+		System.out.println("file 처리시작 !");
+		System.out.println("boardNo"+board.getBoardNo());
+	 //	2. file정보 -> boardFile(Vo)
+		
+	 // 받아온 파일들을 List로 저장
+		List<MultipartFile> files = boardRequest.getFiles();
+	 // 반복문을 통한 첨부된 파일 저장
+		System.out.println("file / For문 처리시작 !");
+		// if(files != null) {
+			for(MultipartFile f : files) {
+				System.out.println("파일 정보 추출 시작 !");
+				// f -> boardfile
+				Boardfile boardfile = new Boardfile();
+				 // 얻어온 No 세팅
+				boardfile.setBoardNo(board.getBoardNo());
+				 // 자동 글자 생성(16진수)
+				String fileName = UUID.randomUUID().toString();
+				System.out.println("자동 글자 :"+fileName);
+				 // 자동생성된 파일 이름으로 저장
+				 // 각 요소별 세팅
+				boardfile.setFileName(fileName);
+				boardfile.setFileType(f.getContentType());
+				System.out.println("타입 :"+f.getContentType());
+				boardfile.setFileSize(f.getSize());
+				System.out.println("사이즈 :"+f.getSize());
+				 // 확장자를 구하기 위해 파일이름 자르고 세팅
+				String originalFileName = f.getOriginalFilename();
+				int i = originalFileName.lastIndexOf(".");
+				String ext = originalFileName.substring(i+1);
+				System.out.println("확장자 :"+ext);
+				boardfile.setFileExt(ext);
+				
+				// 3. file -> path를 이용해서 물리적 장치 저장
+				System.out.println("파일 물리적 저장 시작 !");
+				f.transferTo(new File(path+"/"+fileName+"."+ext));
+				System.out.println("파일 물리적 저장 완료 !");
+				System.out.println("파일 정보 추출 완료 !");
+				 // 파일정보 쿼리를 통해 등록
+				boardFileMapper.insertBoardFile(boardfile);
+			}	
+		// }
+		System.out.println("file / For문 처리완료 !");
 	}
 	
 	public int modifyBoard(Board board) {
